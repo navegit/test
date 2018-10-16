@@ -14,7 +14,7 @@ pipeline {
   }
   post {
     always {
-      echo "I ALWAYS run first"
+      echo "I ALWAYS run firsts"
     }
     unstable {
       echo "UNSTABLE runs after ALWAYS"
