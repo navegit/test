@@ -14,7 +14,7 @@ pipeline {
         // create a directory called "tmp" and cd into that directory
         dir("tmp") {
           // use git to retrieve the plugin-pom
-          git changelog: false, poll: false, url: 'git://github.com/jenkinsci/plugin-pom.git', branch: 'master'
+          git changelog: false, poll: false, url: 'git://github.com/jenkinsci/plugin-pom.git', branch: 'test-branch'
           sh 'echo "M2_HOME: ${M2_HOME}"'
           sh 'echo "JAVA_HOME: ${JAVA_HOME}"'
           sh 'mvn clean verify -Dmaven.test.failure.ignore=true'
@@ -27,6 +27,7 @@ pipeline {
     always {
       // always archive the target when stages are done
       archive "target/**/*"
+      archiveArtifacts artifacts: 'file.extension'
     }
   }
 }
