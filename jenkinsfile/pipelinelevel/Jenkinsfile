@@ -25,8 +25,7 @@ pipeline {
   stages {
     stage("foo") {
       steps {
-        echo "hello"
-        sh "test -f Jenkinsfile"
+        echo "hello $SOME_STRING"
       }
     }
   }

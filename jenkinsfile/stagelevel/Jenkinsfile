@@ -18,6 +18,21 @@ pipeline {
         }
       }
     }
+    stage('Run Tests') {
+        parallel {
+            stage('Unit Test') {
+                steps {
+                  sh "echo 'running test'"
+                }
+            }
+            stage('Integration test Test On Linux') {
+                steps {
+                  sh "echo 'running integration'"
+                }
+            }
+        }
+    }
+
   }
   post {
     always {
