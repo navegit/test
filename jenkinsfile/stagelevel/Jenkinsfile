@@ -24,17 +24,13 @@ pipeline {
             stage('Unit Test') {
                 steps {
                   echo "running test"
-                  sleep {
-                    time 10
-                  }
+                  sleep 10
                 }
             }
             stage('Integration test Test On Linux') {
                 steps {
                   echo "running integration"
-                   sleep {
-                      time 5
-                   }
+                  sleep 5
                 }
             }
         }
