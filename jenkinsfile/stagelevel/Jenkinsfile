@@ -23,12 +23,12 @@ pipeline {
         parallel {
             stage('Unit Test') {
                 steps {
-                  sh "echo 'running test'"
+                  echo "running test"
                 }
             }
             stage('Integration test Test On Linux') {
                 steps {
-                  sh "echo 'running integration'"
+                  echo "running integration"
                 }
             }
         }
