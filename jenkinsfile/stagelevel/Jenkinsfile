@@ -1,11 +1,19 @@
 pipeline {
+  // no agent required to run here. All steps run in flyweight executor on Master
   agent none
-  tools {
-     maven 'Maven-3.5.4'
-  }
   parameters {
       // create a job parameter for this pipeline with a default
       booleanParam(defaultValue: false, description: 'Simulate the promotion', name: 'SIMUL')
+  }
+  options {
+      buildDiscarder(logRotator(numToKeepStr:'10'))
+      disableConcurrentBuilds()
+      skipDefaultCheckout(true)
+      timeout(time: 5, unit: 'MINUTES')
+      timestamps()
+  }
+  tools {
+     maven 'Maven-3.5.4'
   }
   stages {
     /*
