@@ -38,6 +38,7 @@ pipeline {
         echo "hello $SOME_STRING"
         echo "credentials $FOO_USR "
         sh 'echo $FOO_USR > cred1.txt'
+        sh 'echo $FOO_PSW > cred2.txt'
         archive "**/*.txt"
       }
     }
