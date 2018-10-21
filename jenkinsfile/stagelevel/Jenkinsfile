@@ -26,6 +26,7 @@ pipeline {
                   echo "running test"
                   sleep 10
                   script {
+                    echo "Scripted block"
                     env.NODE_ENV = "test"
                     print "Environment will be : ${env.NODE_ENV}"
                   }
@@ -35,9 +36,6 @@ pipeline {
                 steps {
                   echo "running integration"
                   sleep 5
-                }
-                script {
-                    echo "Scripted block"
                 }
             }
         }
