@@ -9,7 +9,7 @@ pipeline {
 
   // Options covers all other job properties or wrapper functions that apply to entire Pipeline.
   options {
-    buildDiscarder(logRotator(numToKeepStr:'1'))
+    buildDiscarder(logRotator(numToKeepStr:'10'))
     disableConcurrentBuilds()
     skipDefaultCheckout(true)
     timeout(time: 5, unit: 'MINUTES')
