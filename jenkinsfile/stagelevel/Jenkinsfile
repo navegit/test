@@ -5,6 +5,7 @@ pipeline {
       // create a job parameter for this pipeline with a default
       booleanParam(defaultValue: false, description: 'Simulate the promotion', name: 'SIMUL')
   }
+  // Options covers all other job properties or wrapper functions that apply to entire Pipeline.
   options {
       buildDiscarder(logRotator(numToKeepStr:'10'))
       disableConcurrentBuilds()
@@ -16,60 +17,70 @@ pipeline {
      maven 'Maven-3.5.4'
   }
   stages {
-    /*
-    stage('Stage: when') {
-    	when {
-    		branch 'master'
-    	}
-    }
-    stage('Stage: when') {
-       when {
-          expression {
-              // only run when the expression is true
-              currentBuild.getNumber() % 2 == 1
-          }
-       }
-       steps {
-          // call the current job and pass the SIMUL parameter value
-          build job: currentBuild.getProjectName(), parameters: [
-              booleanParam(name: 'SIMUL', value: params.SIMUL)
-          ]
-       }
-    }
-    */
-    stage("Stage: When, Input") {
-       environment {
-          OUTPUT_PATH = './outputs/'
-       }
-      /*
-      input{
-            message "Press Ok to continue"
-            submitter "user1,user2"
-            parameters {
-                string(name:'username', defaultValue: 'user', description: 'Username of the user pressing Ok')
+        /* agent here
+          agent any
+        */
+        /* tools can be defined at stage level
+        stage('Stage: tools') {
+            tools {
+               maven "apache-maven-3.0.1"
             }
-      }
-      */
-       steps {
-         echo "echoing"
-       }
-    }
-    stage('Parallel stages') {
-        parallel {
-            stage('Unit Test') {
-                steps {
-                  echo "running test"
-                  sleep 10
+        }
+        */
+        /*
+        stage('Stage: when') {
+            when {
+                branch 'master'
+            }
+        }
+        stage('Stage: when') {
+           when {
+              expression {
+                  // only run when the expression is true
+                  currentBuild.getNumber() % 2 == 1
+              }
+           }
+           steps {
+              // call the current job and pass the SIMUL parameter value
+              build job: currentBuild.getProjectName(), parameters: [
+                  booleanParam(name: 'SIMUL', value: params.SIMUL)
+              ]
+           }
+        }
+        */
+        stage("Stage: When, Input") {
+           environment {
+              OUTPUT_PATH = './outputs/'
+           }
+          /*
+          input{
+                message "Press Ok to continue"
+                submitter "user1,user2"
+                parameters {
+                    string(name:'username', defaultValue: 'user', description: 'Username of the user pressing Ok')
                 }
-            }
-            stage('Integration test Test On Linux') {
-                steps {
-                  echo "running integration"
-                  sleep 5
+          }
+          */
+           steps {
+             echo "echoing"
+           }
+        }
+        stage('Parallel stages') {
+            parallel {
+                stage('Unit Test') {
+                    steps {
+                      echo "running test"
+                      sleep 10
+                    }
+                }
+                stage('Integration test Test On Linux') {
+                    steps {
+                      echo "running integration"
+                      sleep 5
+                    }
                 }
             }
         }
-    }
   }
   post {
     always {

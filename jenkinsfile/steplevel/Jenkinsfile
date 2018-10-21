@@ -11,15 +11,37 @@ pipeline {
            sh('echo $PATH')
            sh 'echo $PATH'
            sh '''
-           echo "A multiline step"'
-           ls -l
+              echo "Multiline shell steps works too"
+              ls -lah
            '''
+
+           //create a directory called "tmp" and cd into that directory
+           dir("tmp") {
+                sh 'echo "tmp dir"'
+           }
+
+           //Running Scripted pipeline code
+           // variable assignment (other than environment variables) can only be done in a script block
+           // complex global variables (with properties or methods) can only be run in a script block
+           // env variables can also be set within a script block
+           script {
+             foo = "hello var"
+           }
+           echo "$foo"
+
            // Some steps may not be fully implemented with symbols or step names to run directly
            // steps can be used to call the class directly and run that step.
            step([$class: 'ArtifactArchiver', artifacts: 'msg.out', fingerprint: true])
-           //Running Scripted pipeline code
-           script {
-             echo "HOW R U"
+
+           /*
+            * Any Pipeline steps and wrappers can be used within the "steps" section
+            * of a Pipeline and they can be nested.
+            * Refer to the Pipeline Syntax Snippet Generator for the correct syntax of any step or wrapper
+            */
+           timeout(time: 5, unit: "SECONDS") {
+             retry(5) {
+               echo "hello"
+             }
            }
        }
     }
