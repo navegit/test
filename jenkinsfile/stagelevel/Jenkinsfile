@@ -3,15 +3,38 @@ pipeline {
   tools {
      maven 'Maven-3.5.4'
   }
+  parameters {
+      // create a job parameter for this pipeline with a default
+      booleanParam(defaultValue: false, description: 'Simulate the promotion', name: 'SIMUL')
+  }
   stages {
-    stage("Hello") {
-       echo "running stage"
+    /*
+    stage('Stage: when') {
+    	when {
+    		branch 'master'
+    	}
+    }
+    */
+    stage('Stage: when') {
+       when {
+          expression {
+              // only run when the expression is true
+              currentBuild.getNumber() % 2 == 1
+          }
+       }
        steps {
-           echo "hello"
-           // need to use script block to assign value
-           script {
-             echo "HOW R U"
-           }
+          // call the current job and pass the SIMUL parameter value
+          build job: currentBuild.getProjectName(), parameters: [
+              booleanParam(name: 'SIMUL', value: params.SIMUL)
+          ]
+}A621ECVXFf&tmctmbtmhrmrcr~r!rtgrw%cyswm@& @s@@o@@@wlww_!awsaa{ca{tqa+a+fa+a<@@i @a)dz(cuc!mc
+    }
+
+    stage("Stage: When, Input") {
+       echo "running stage level"
+       environment {
+          OUTPUT_PATH = './outputs/'
+          AN_ACCESS_KEY = credentials('my-prefined-secret-text')
        }
       /*
       input{
@@ -24,26 +47,51 @@ pipeline {
       */
 
     }
-    stage('Run Tests') {
+    stage('Parallel stages') {
         parallel {
             stage('Unit Test') {
                 steps {
                   echo "running test"
                   sleep 10
-                  script {
-                    echo "Scripted block"
-                    env.NODE_ENV = "test"
-                    print "Environment will be : ${env.NODE_ENV}"
-                  }
+                  echo "steps can be used to call the class directly and run that step."
+                  step([$class: 'ArtifactArchiver', artifacts: 'msg.out', fingerprint: true])
                 }
             }
             stage('Integration test Test On Linux') {
                 steps {
                   echo "running integration"
                   sleep 5
+                  step([$class: 'ArtifactArchiver', artifacts: 'msg.out', fingerprint: true])
                 }
             }
         }
+    }
+    stage("Step Level") {
+       echo "running step level"
+       /*
+         input{
+               message "Press Ok to continue"
+               submitter "user1,user2"
+               parameters {
+                   string(name:'username', defaultValue: 'user', description: 'Username of the user pressing Ok')
+               }
+         }
+         */
+       steps {
+           echo "hello"
+           // Running Shell script: Parentheses are optional when a single parameter is used
+           sh('echo $PATH')
+           sh 'echo $PATH'
+           // Some steps may not be fully implemented with symbols or step names to run directly
+           // steps can be used to call the class directly and run that step.
+           step([$class: 'ArtifactArchiver', artifacts: 'msg.out', fingerprint: true])
+           //Running Scripted pipeline code
+           script {
+             echo "HOW R U"
+           }
+       }
+
+
     }
 
   }

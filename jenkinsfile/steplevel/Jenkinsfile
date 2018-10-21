@@ -1,0 +1,36 @@
+pipeline {
+  agent none
+  tools {
+     maven 'Maven-3.5.4'
+  }
+  stages {
+    stage("Step Level") {
+       echo "running step level"
+       steps {
+           echo "hello"
+           // Running Shell script: Parentheses are optional when a single parameter is used
+           sh('echo $PATH')
+           sh 'echo $PATH'
+           sh '''
+            echo "A multiline step"'
+            ls -l
+           '''
+           // Some steps may not be fully implemented with symbols or step names to run directly
+           // steps can be used to call the class directly and run that step.
+           step([$class: 'ArtifactArchiver', artifacts: 'msg.out', fingerprint: true])
+           //Running Scripted pipeline code
+           script {
+             echo "HOW R U"
+           }
+       }
+    }
+  }
+  post {
+    always {
+      echo "I ALWAYS run firsts"
+    }
+    unstable {
+      echo "UNSTABLE runs after ALWAYS"
+    }
+  }
+}
