@@ -5,7 +5,6 @@ pipeline {
   }
   stages {
     stage("Step Level") {
-       echo "running step level"
        steps {
            echo "hello"
            // Running Shell script: Parentheses are optional when a single parameter is used
