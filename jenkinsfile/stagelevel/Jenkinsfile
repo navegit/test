@@ -27,7 +27,7 @@ pipeline {
           build job: currentBuild.getProjectName(), parameters: [
               booleanParam(name: 'SIMUL', value: params.SIMUL)
           ]
-}A621ECVXFf&tmctmbtmhrmrcr~r!rtgrw%cyswm@& @s@@o@@@wlww_!awsaa{ca{tqa+a+fa+a<@@i @a)dz(cuc!mc
+       }
     }
 
     stage("Stage: When, Input") {
