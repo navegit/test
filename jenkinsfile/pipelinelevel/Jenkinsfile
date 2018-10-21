@@ -36,6 +36,7 @@ pipeline {
     stage("foo") {
       steps {
         echo "hello $SOME_STRING"
+        echo "credentials $FOO_USR "
       }
     }
   }
