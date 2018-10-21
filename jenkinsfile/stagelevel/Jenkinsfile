@@ -53,15 +53,12 @@ pipeline {
                 steps {
                   echo "running test"
                   sleep 10
-                  echo "steps can be used to call the class directly and run that step."
-                  step([$class: 'ArtifactArchiver', artifacts: 'msg.out', fingerprint: true])
                 }
             }
             stage('Integration test Test On Linux') {
                 steps {
                   echo "running integration"
                   sleep 5
-                  step([$class: 'ArtifactArchiver', artifacts: 'msg.out', fingerprint: true])
                 }
             }
         }
