@@ -18,6 +18,8 @@ pipeline {
            //create a directory called "tmp" and cd into that directory
            dir("tmp") {
                 sh 'echo "tmp dir"'
+                // use git to retrieve the plugin-pom
+                /* git changelog: false, poll: false, url: 'git://github.com/jenkinsci/plugin-pom.git', branch: 'master' */
            }
 
            //Running Scripted pipeline code
@@ -28,7 +30,6 @@ pipeline {
              foo = "hello var"
            }
            echo "$foo"
-
 
            writeFile text: 'hello world', file: 'msg.out'
            // Some steps may not be fully implemented with symbols or step names to run directly
