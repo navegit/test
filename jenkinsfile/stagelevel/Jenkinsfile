@@ -29,6 +29,23 @@ pipeline {
           ]
        }
     }
+    stage("Stage: When, Input") {
+       environment {
+          OUTPUT_PATH = './outputs/'
+       }
+      /*
+      input{
+            message "Press Ok to continue"
+            submitter "user1,user2"
+            parameters {
+                string(name:'username', defaultValue: 'user', description: 'Username of the user pressing Ok')
+            }
+      }
+      */
+       steps {
+         echo "echoing"
+       }
+    }
   }
   post {
     always {
