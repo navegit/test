@@ -31,7 +31,6 @@ pipeline {
     }
 
     stage("Stage: When, Input") {
-       echo "running stage level"
        environment {
           OUTPUT_PATH = './outputs/'
           AN_ACCESS_KEY = credentials('my-prefined-secret-text')
@@ -45,7 +44,9 @@ pipeline {
             }
       }
       */
-
+       steps {
+         echo "access key is $AN_ACCESS_KEY"
+       }
     }
     stage('Parallel stages') {
         parallel {
