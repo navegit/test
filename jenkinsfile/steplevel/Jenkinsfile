@@ -29,6 +29,8 @@ pipeline {
            }
            echo "$foo"
 
+
+           writeFile text: 'hello world', file: 'msg.out'
            // Some steps may not be fully implemented with symbols or step names to run directly
            // steps can be used to call the class directly and run that step.
            step([$class: 'ArtifactArchiver', artifacts: 'msg.out', fingerprint: true])
