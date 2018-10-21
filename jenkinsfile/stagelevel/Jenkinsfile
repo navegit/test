@@ -46,6 +46,22 @@ pipeline {
          echo "echoing"
        }
     }
+    stage('Parallel stages') {
+        parallel {
+            stage('Unit Test') {
+                steps {
+                  echo "running test"
+                  sleep 10
+                }
+            }
+            stage('Integration test Test On Linux') {
+                steps {
+                  echo "running integration"
+                  sleep 5
+                }
+            }
+        }
+    }
   }
   post {
     always {
