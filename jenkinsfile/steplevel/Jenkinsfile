@@ -46,6 +46,9 @@ pipeline {
                echo "hello"
              }
            }
+
+           //blocks for input and won’t proceed without a person confirming the progress.
+           /* input "Does the staging environment look ok?"  */
        }
     }
   }

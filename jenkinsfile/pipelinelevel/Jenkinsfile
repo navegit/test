@@ -7,12 +7,6 @@ pipeline {
     string(defaultValue: '', description: '', name: 'SOME_STRING')
   }
 
-  // Triggers define how the job is triggered.
-  // Jobs may still be triggered manually or by webhook as well here.
-  triggers {
-    cron('@daily')
-  }
-
   // Options covers all other job properties or wrapper functions that apply to entire Pipeline.
   options {
     buildDiscarder(logRotator(numToKeepStr:'1'))
@@ -29,7 +23,13 @@ pipeline {
    * "$FOO_USR" will contain string for Username
    * "$FOO_PSW" will contain string for Password
    */
-    FOO = credentials("testuser")
+    FOO = credentials("testuser-id")
+  }
+
+  // Triggers define how the job is triggered.
+  // Jobs may still be triggered manually or by webhook as well here.
+  triggers {
+    cron('@daily')
   }
 
   stages {
