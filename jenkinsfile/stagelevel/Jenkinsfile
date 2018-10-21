@@ -66,34 +66,6 @@ pipeline {
             }
         }
     }
-    stage("Step Level") {
-       echo "running step level"
-       /*
-         input{
-               message "Press Ok to continue"
-               submitter "user1,user2"
-               parameters {
-                   string(name:'username', defaultValue: 'user', description: 'Username of the user pressing Ok')
-               }
-         }
-         */
-       steps {
-           echo "hello"
-           // Running Shell script: Parentheses are optional when a single parameter is used
-           sh('echo $PATH')
-           sh 'echo $PATH'
-           // Some steps may not be fully implemented with symbols or step names to run directly
-           // steps can be used to call the class directly and run that step.
-           step([$class: 'ArtifactArchiver', artifacts: 'msg.out', fingerprint: true])
-           //Running Scripted pipeline code
-           script {
-             echo "HOW R U"
-           }
-       }
-
-
-    }
-
   }
   post {
     always {
