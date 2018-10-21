@@ -1,23 +1,28 @@
 pipeline {
   agent none
-
+  tools {
+     maven 'apache-maven-3.0.1'
+  }
   stages {
     stage("Hello") {
-     /*  input{
-       		message "Press Ok to continue"
-       		submitter "user1,user2"
-       		parameters {
-       			string(name:'username', defaultValue: 'user', description: 'Username of the user pressing Ok')
-       		}
+       echo "running stage"
+       steps {
+           echo "hello"
+           // need to use script block to assign value
+           script {
+             echo "HOW R U"
+           }
        }
-      */
-      steps {
-        echo "hello"
-        // need to use script block to assign value
-        script {
-          echo "HOW R U"
-        }
+      /*
+      input{
+            message "Press Ok to continue"
+            submitter "user1,user2"
+            parameters {
+                string(name:'username', defaultValue: 'user', description: 'Username of the user pressing Ok')
+            }
       }
+      */
+
     }
     stage('Run Tests') {
         parallel {
