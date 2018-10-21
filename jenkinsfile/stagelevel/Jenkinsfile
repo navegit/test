@@ -35,6 +35,14 @@ pipeline {
                 steps {
                   echo "running integration"
                   sleep 5
+                  parallel(
+                      a: {
+                        echo "Tests on Linux"
+                      },
+                      b: {
+                        echo "Tests on Windows"
+                      }
+                  )
                 }
             }
         }
