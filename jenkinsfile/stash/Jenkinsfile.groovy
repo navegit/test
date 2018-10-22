@@ -4,9 +4,13 @@ pipeline {
         stage('Stash') {
             steps {
                 sh "mkdir -p output"
+                sh "cd output"
+                sh "touch myoutput"
+                sh "mkdir -p test1"
+                sh "cd test1"
 
                 // Write a text file there.
-                writeFile file: "output/somefile", text: "Hey look, some text."
+                writeFile file: "output/test1/somefile", text: "Hey look, some text."
 
                 // Stash that directory and file.
                 // Note that the includes could be "output/", "output/*" as below, or even
@@ -16,7 +20,7 @@ pipeline {
                 // }
                 // stash name: "first-stash", includes: "my-dir/*"
                 stash name: "first-stash", includes: "output/*"
-                sleep 30
+                sleep 15
             }
         }
         stage('Cleanup Workspace - Slave') {
@@ -37,7 +41,7 @@ pipeline {
                    // Look, no output directory under the root!
                    // pwd() outputs the current directory Pipeline is running in.
 
-                   sleep 30
+                   sleep 15
             }
         }
     }

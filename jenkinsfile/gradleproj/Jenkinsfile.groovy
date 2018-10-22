@@ -25,7 +25,7 @@ pipeline {
               }
               echo "stashing"
               stash name: "app", includes: "app/build/libs/*.jar"
-              sleep 30
+              sleep 15
             }
         }
         stage('Cleanup Workspace') {
@@ -36,8 +36,9 @@ pipeline {
         }
         stage('Deploy Workspace') {
             steps {
+               echo 'Unstashing workspace....'
                unstash "app"
-               sleep 30
+               sleep 15
             }
         }
     }
