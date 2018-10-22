@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    stages {
+        stage('Stash') {
+            steps {
+                sh "mkdir -p output"
+
+                // Write a text file there.
+                writeFile file: "output/somefile", text: "Hey look, some text."
+
+                // Stash that directory and file.
+                // Note that the includes could be "output/", "output/*" as below, or even
+                // "output/**/*" - it all works out basically the same.
+                stash name: "first-stash", includes: "output/*"
+                sleep 180
+            }
+        }
+        stage('Unstash') {
+            steps {
+                unstash name: "first-stash"
+                sleep 180
+            }
+        }
+    }
+}
