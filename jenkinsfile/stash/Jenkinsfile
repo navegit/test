@@ -20,7 +20,9 @@ pipeline {
         }
         stage('Unstash') {
             steps {
-                unstash name: "first-stash"
+                dir("first-stash") {
+                        unstash "first-stash"
+                }
                 sleep 60
             }
         }
