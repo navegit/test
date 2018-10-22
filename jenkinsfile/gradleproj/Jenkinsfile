@@ -24,6 +24,7 @@ pipeline {
               dir('app') {
                   sh 'gradle clean build'
               }
+              echo "stashing"
               stash name: "app", includes: "app/build/libs/*.jar"
               sleep 30
             }
