@@ -14,13 +14,17 @@ pipeline {
         stage('Checkout') {
             agent any
             steps {
-                git branch: 'test-branch', url: 'https://github.com/navegit/testproj.git'
-                sh 'gradle clean build'
+                dir('app'){
+                    git branch: 'test-branch', url: 'https://github.com/navegit/testproj.git'
+                }
                 sleep 15
             }
         }
         stage('Build workspace') {
             steps {
+              dir('app') {
+                  sh 'gradle clean build'
+              }
               echo "stashing"
               stash name: "app", includes: "app/build/libs/*.jar"
               sleep 30
