@@ -21,10 +21,8 @@ pipeline {
         }
         stage('Cleanup Workspace - Slave') {
                 steps {
-                    ansiColor('xterm') {
-                        echo 'Cleaning workspace....'
-                        cleanWs()
-                    }
+                    echo 'Cleaning workspace....'
+                    cleanWs()
                 }
         }
         stage('Unstash') {
