@@ -3,27 +3,38 @@ pipeline {
     stages {
         stage('Stash') {
             steps {
-                //sh "mkdir -p output"
+                sh "mkdir -p output"
 
                 // Write a text file there.
-                //writeFile file: "output/somefile", text: "Hey look, some text."
+                writeFile file: "output/somefile", text: "Hey look, some text."
 
                 // Stash that directory and file.
                 // Note that the includes could be "output/", "output/*" as below, or even
                 // "output/**/*" - it all works out basically the same.
-                dir('my-dir'){
-                  git branch: 'master', url: 'https://github.com/navegit/testproj.git'
-                }
-                stash name: "first-stash", includes: "my-dir/*"
+                // dir('my-dir'){
+               //    git branch: 'master', url: 'https://github.com/navegit/testproj.git'
+                // }
+                // stash name: "first-stash", includes: "my-dir/*"
+                stash name: "first-stash", includes: "output/*"
                 sleep 60
             }
         }
         stage('Unstash') {
             steps {
-                dir("first-stash") {
-                        unstash "first-stash"
-                }
-                sleep 60
+               // dir("first-stash") {
+               //         unstash "first-stash"
+               // }
+                   dir("first-stash") {
+                       unstash "first-stash"
+                   }
+
+                   // Look, no output directory under the root!
+                   // pwd() outputs the current directory Pipeline is running in.
+                   sh "ls -la ${pwd()}"
+
+                   // And look, output directory is there under first-stash!
+                   sh "ls -la ${pwd()}/first-stash"
+                   sleep 60
             }
         }
     }
