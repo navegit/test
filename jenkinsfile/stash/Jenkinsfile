@@ -16,8 +16,16 @@ pipeline {
                 // }
                 // stash name: "first-stash", includes: "my-dir/*"
                 stash name: "first-stash", includes: "output/*"
-                sleep 60
+                sleep 30
             }
+        }
+        stage('Cleanup Workspace - Slave') {
+                steps {
+                    ansiColor('xterm') {
+                        echo 'Cleaning workspace....'
+                        cleanWs()
+                    }
+                }
         }
         stage('Unstash') {
             steps {
@@ -31,7 +39,7 @@ pipeline {
                    // Look, no output directory under the root!
                    // pwd() outputs the current directory Pipeline is running in.
 
-                   sleep 60
+                   sleep 30
             }
         }
     }
