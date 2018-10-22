@@ -17,6 +17,7 @@ pipeline {
                 dir('app'){
                     git branch: 'master', url: 'https://github.com/jitpack/gradle-simple.git'
                 }
+                sleep 15
             }
         }
         stage('Build workspace') {
