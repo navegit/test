@@ -5,14 +5,12 @@ pipeline {
     }
     stages {
         stage('Cleanup Workspace - Master') {
-            agent any
             steps {
                 echo 'Cleaning workspace....'
                 cleanWs()
             }
         }
         stage('Checkout') {
-            agent any
             steps {
                 dir('code-dir'){
                     git branch: 'test-branch', url: 'https://github.com/navegit/testproj.git'
