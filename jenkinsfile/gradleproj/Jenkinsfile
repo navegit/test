@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Checkout') {
             steps {
-                dir('code-dir'){
+                dir('app'){
                     git branch: 'test-branch', url: 'https://github.com/navegit/testproj.git'
                 }
                 sleep 15
@@ -20,11 +20,11 @@ pipeline {
         }
         stage('Build workspace') {
             steps {
-              dir('code-dir') {
+              dir('app') {
                   sh 'gradle clean build'
               }
               echo "stashing"
-              stash name: "app", includes: "app/build/libs/*.jar"
+              stash name: "app", includes: "build/libs/*.jar"
               sleep 30
             }
         }
