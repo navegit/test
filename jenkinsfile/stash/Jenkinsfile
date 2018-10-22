@@ -12,13 +12,13 @@ pipeline {
                 // Note that the includes could be "output/", "output/*" as below, or even
                 // "output/**/*" - it all works out basically the same.
                 stash name: "first-stash", includes: "output/*"
-                sleep 180
+                sleep 60
             }
         }
         stage('Unstash') {
             steps {
                 unstash name: "first-stash"
-                sleep 180
+                sleep 60
             }
         }
     }
