@@ -15,7 +15,7 @@ pipeline {
             agent any
             steps {
                 dir('app'){
-                    git branch: 'master', url: 'https://github.com/jitpack/gradle-simple.git'
+                    git branch: 'master', url: 'https://github.com/navegit/testproj.git'
                 }
                 sleep 15
             }
