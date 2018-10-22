@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+    tools {
+        gradle "Gradle-3.4"
+    }
+    stages {
+        stage('Cleanup Workspace - Master') {
+            agent any
+            steps {
+                echo 'Cleaning workspace....'
+                cleanWs()
+            }
+        }
+        stage('Checkout') {
+            agent any
+            steps {
+                dir('app'){
+                    git branch: 'master', url: 'https://github.com/jitpack/gradle-simple.git'
+                }
+            }
+        }
+        stage('Build workspace') {
+            steps {
+              dir('app') {
+                  sh 'gradle clean build'
+              }
+              stash name: "app", includes: "app/build/libs/*.jar"
+              sleep 30
+            }
+        }
+        stage('Cleanup Workspace') {
+            steps {
+                echo 'Cleaning workspace....'
+                cleanWs()
+            }
+        }
+        stage('Deploy Workspace') {
+            steps {
+               unstash "app"
+               sleep 30
+            }
+        }
+    }
+}
