@@ -26,7 +26,7 @@ pipeline {
                //    git branch: 'master', url: 'https://github.com/navegit/testproj.git'
                 // }
                 // stash name: "first-stash", includes: "my-dir/*"
-                stash name: "first-stash", includes: "output/**/*"
+                stash name: 'first-stash', includes: 'output/**/*'
             }
         }
 
