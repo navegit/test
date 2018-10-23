@@ -41,6 +41,7 @@ pipeline {
                     steps {
                         dir('app-test') {
                             unstash "first-stash"
+                            sh "ls -l"
                         }
                     }
                 }
@@ -48,6 +49,7 @@ pipeline {
                     steps {
                         dir('app-integrationtest') {
                             unstash "first-stash"
+                            sh "ls -l"
                         }
                     }
                 }
