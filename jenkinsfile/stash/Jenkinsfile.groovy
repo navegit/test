@@ -64,10 +64,5 @@ pipeline {
               }
           }
         }
-        stage ('Build Workspace') {
-            steps {
-                stash name: "first-stash", includes: "output/myoutput"
-            }
-        }
     }
 }
