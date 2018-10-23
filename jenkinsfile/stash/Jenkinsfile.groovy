@@ -49,7 +49,7 @@ pipeline {
                         dir('app-test') {
                             unstash "first-stash"
                             sh "ls -l"
-                           *//* writeFile file: "output/test1/somefile", text: "from test2."*//*
+                            writeFile file: "output/test1/somefile", text: "from test2."
                         }
                     }
                 }
@@ -58,7 +58,7 @@ pipeline {
                         dir('app-test') {
                             unstash "first-stash"
                             sh "ls -l"
-                           *//* writeFile file: "output/test1/somefile", text: "from test1."*//*
+                            writeFile file: "output/test1/somefile", text: "from test1."
                         }
                     }
                 }
