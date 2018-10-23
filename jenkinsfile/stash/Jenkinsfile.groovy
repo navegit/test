@@ -2,7 +2,6 @@ pipeline {
     agent any
     stages {
         stage('Cleanup Workspace - Master') {
-            agent any
             steps {
                 echo 'Cleaning workspace....'
                 cleanWs()
