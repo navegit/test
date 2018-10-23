@@ -9,11 +9,12 @@ pipeline {
         }
         stage('Stash') {
             steps {
-                sh "mkdir -p output"
-                sh "cd output"
-                sh "touch myoutput"
-                sh "mkdir -p test1"
-                sh "cd test1"
+                sh '''
+                    mkdir -p output
+                    cd output
+                    touch myoutput
+                    mkdir -p test1
+                '''
 
                 // Write a text file there.
                 writeFile file: "output/test1/somefile", text: "Hey look, some text."
@@ -61,6 +62,26 @@ pipeline {
                         }
                     }
                 }
+            }
+        }
+        stage ('Build Workspace') {
+            agent any
+            steps {
+                stash name: 'first-stash', includes: 'output/myoutput'
+            }
+        }
+        stage('Cleanup Workspace - Slave') {
+            steps {
+                ansiColor('xterm') {
+                    echo 'Cleaning workspace....'
+                    cleanWs()
+                }
+            }
+        }
+        stage('Deploy Workspace') {
+            steps {
+                echo "deploying workspace"
+                unstash 'first-stash'
             }
         }
     }
