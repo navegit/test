@@ -19,7 +19,7 @@ pipeline {
                //    git branch: 'master', url: 'https://github.com/navegit/testproj.git'
                 // }
                 // stash name: "first-stash", includes: "my-dir/*"
-                stash name: "first-stash", includes: "output/*"
+                stash name: "first-stash", includes: "output/**/*"
             }
         }
         stage('Cleanup Workspace - Slave') {
@@ -44,7 +44,6 @@ pipeline {
             }*/
             parallel {
                 stage('Run Unit Tests') {
-                    agent any
                     steps {
                         dir('app-test') {
                             unstash "first-stash"
@@ -52,7 +51,6 @@ pipeline {
                     }
                 }
                 stage('Run Integration Tests') {
-                    agent any
                     steps {
                         dir('app-integrationtest') {
                             unstash "first-stash"
