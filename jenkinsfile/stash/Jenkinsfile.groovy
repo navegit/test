@@ -29,7 +29,7 @@ pipeline {
                 }
         }
         stage('Unstash') {
-            steps {
+           /* steps {
                // dir("first-stash") {
                //         unstash "first-stash"
                // }
@@ -41,6 +41,24 @@ pipeline {
                    // pwd() outputs the current directory Pipeline is running in.
 
                    sleep 15
+            }*/
+            parallel {
+                stage('Run Unit Tests') {
+                    agent any
+                    steps {
+                        dir('app-test') {
+                            unstash "first-stash"
+                        }
+                    }
+                }
+                stage('Run Integration Tests') {
+                    agent any
+                    steps {
+                        dir('app-integrationtest') {
+                            unstash "first-stash"
+                        }
+                    }
+                }
             }
         }
     }
