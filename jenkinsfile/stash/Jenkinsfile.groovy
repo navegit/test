@@ -29,5 +29,40 @@ pipeline {
                 stash name: 'first-stash', includes: 'output/**/*'
             }
         }
+        stage('Unstash') {
+           /* steps {
+             // dir("first-stash") {
+             //         unstash "first-stash"
+             // }
+                 dir("first-stash") {
+                     unstash "first-stash"
+                 }
+
+                 // Look, no output directory under the root!
+                 // pwd() outputs the current directory Pipeline is running in.
+
+                 sleep 15
+          }*/
+          parallel {
+              stage('Run Integration Tests') {
+                  steps {
+                      dir('app-test') {
+                          unstash 'first-stash'
+                          sh "ls -l"
+                          writeFile file: "output/test1/somefile", text: "from test2."
+                      }
+                  }
+              }
+              stage('Run Unit Tests') {
+                  steps {
+                      dir('app-test') {
+                          unstash 'first-stash'
+                          sh "ls -l"
+                          writeFile file: "output/test1/somefile", text: "from test1."
+                      }
+                  }
+              }
+          }
+        }
     }
 }
