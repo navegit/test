@@ -43,21 +43,21 @@ pipeline {
                    sleep 15
             }*/
             parallel {
-                stage('Run Unit Tests') {
-                    steps {
-                        dir('app-test') {
-                            unstash "first-stash"
-                            sh "ls -l"
-                            writeFile file: "output/test1/somefile", text: "from test1."
-                        }
-                    }
-                }
                 stage('Run Integration Tests') {
                     steps {
                         dir('app-test') {
                             unstash "first-stash"
                             sh "ls -l"
                             writeFile file: "output/test1/somefile", text: "from test2."
+                        }
+                    }
+                }
+                stage('Run Unit Tests') {
+                    steps {
+                        dir('app-test') {
+                            unstash "first-stash"
+                            sh "ls -l"
+                            writeFile file: "output/test1/somefile", text: "from test1."
                         }
                     }
                 }
