@@ -42,14 +42,16 @@ pipeline {
                         dir('app-test') {
                             unstash "first-stash"
                             sh "ls -l"
+                            writeFile file: "output/test1/somefile", text: "from test1."
                         }
                     }
                 }
                 stage('Run Integration Tests') {
                     steps {
-                        dir('app-integrationtest') {
+                        dir('app-test') {
                             unstash "first-stash"
                             sh "ls -l"
+                            writeFile file: "output/test1/somefile", text: "from test2."
                         }
                     }
                 }
