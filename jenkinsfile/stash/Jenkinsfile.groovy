@@ -29,22 +29,6 @@ pipeline {
                 stash name: "first-stash", includes: "output/**/*"
             }
         }
-        stage ('Build Workspace') {
-            steps {
-                stash name: "first-stash", includes: "output/myoutput"
-            }
-        }
-        stage('Cleanup Workspace') {
-            steps {
-                echo 'Cleaning workspace....'
-                cleanWs()
-            }
-        }
-        stage('Deploy Workspace') {
-            steps {
-                echo "deploying workspace"
-                unstash 'first-stash'
-            }
-        }
+
     }
 }
