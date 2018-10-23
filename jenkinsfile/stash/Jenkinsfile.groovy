@@ -62,8 +62,8 @@ pipeline {
         stage ('Build Workspace') {
             steps {
                 stash name: "first-stash", includes: "output/myoutput"
+                sleep 15
             }
-            sleep 15
         }
         stage('Deploy Workspace') {
             steps {
