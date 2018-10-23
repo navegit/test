@@ -1,6 +1,13 @@
 pipeline {
     agent any
     stages {
+        stage('Cleanup Workspace - Master') {
+            agent any
+            steps {
+                echo 'Cleaning workspace....'
+                cleanWs()
+            }
+        }
         stage('Stash') {
             steps {
                 sh "mkdir -p output"
