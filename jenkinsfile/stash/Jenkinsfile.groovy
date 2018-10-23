@@ -65,17 +65,14 @@ pipeline {
             }
         }
         stage ('Build Workspace') {
-            agent any
             steps {
                 stash name: 'first-stash', includes: 'output/myoutput'
             }
         }
         stage('Cleanup Workspace - Slave') {
             steps {
-                ansiColor('xterm') {
-                    echo 'Cleaning workspace....'
-                    cleanWs()
-                }
+                echo 'Cleaning workspace....'
+                cleanWs()
             }
         }
         stage('Deploy Workspace') {
