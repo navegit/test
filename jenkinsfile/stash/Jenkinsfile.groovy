@@ -70,12 +70,6 @@ pipeline {
                 stash name: "first-stash", includes: "output/myoutput"
             }
         }
-        stage('Cleanup Workspace') {
-            steps {
-                echo 'Cleaning workspace....'
-                cleanWs()
-            }
-        }
         stage('Deploy Workspace') {
             steps {
                 echo "deploying workspace"
