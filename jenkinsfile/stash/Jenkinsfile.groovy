@@ -64,22 +64,5 @@ pipeline {
                 }
             }
         }
-        stage ('Build Workspace') {
-            steps {
-                stash name: 'first-stash', includes: 'output/myoutput'
-            }
-        }
-        stage('Cleanup Workspace - Slave') {
-            steps {
-                echo 'Cleaning workspace....'
-                cleanWs()
-            }
-        }
-        stage('Deploy Workspace') {
-            steps {
-                echo "deploying workspace"
-                unstash 'first-stash'
-            }
-        }
     }
 }
