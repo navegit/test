@@ -22,12 +22,6 @@ pipeline {
                 stash name: "first-stash", includes: "output/**/*"
             }
         }
-        stage('Cleanup Workspace - Slave') {
-                steps {
-                    echo 'Cleaning workspace....'
-                    cleanWs()
-                }
-        }
         stage('Unstash') {
            /* steps {
                // dir("first-stash") {
