@@ -31,7 +31,7 @@ pipeline {
         }
         stage ('Build Workspace') {
             steps {
-                stash name: 'first-stash', includes: 'output/myoutput'
+                stash name: "first-stash", includes: "output/myoutput"
             }
         }
         stage('Cleanup Workspace') {
