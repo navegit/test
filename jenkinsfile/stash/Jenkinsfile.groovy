@@ -1,12 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('Cleanup Workspace - Master') {
-            steps {
-                echo 'Cleaning workspace....'
-                cleanWs()
-            }
-        }
         stage('Stash') {
             steps {
                 sh '''
@@ -68,6 +62,12 @@ pipeline {
         stage ('Build Workspace') {
             steps {
                 stash name: "first-stash", includes: "output/myoutput"
+            }
+        }
+        stage('Cleanup Workspace - Master') {
+            steps {
+                echo 'Cleaning workspace....'
+                cleanWs()
             }
         }
         stage('Deploy Workspace') {
