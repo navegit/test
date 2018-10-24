@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label : 'slave_label'
+    }
     stages {
         stage('Stash') {
             steps {
@@ -22,7 +24,6 @@ pipeline {
                 // stash name: "first-stash", includes: "my-dir/*"
 
                 stash name: 'first-stash', includes: 'output/**/*'
-                sleep 15
             }
         }
         stage('Unstash') {
@@ -63,7 +64,6 @@ pipeline {
         stage ('Build Workspace') {
             steps {
                 stash name: "first-stash", includes: "output/myoutput"
-                sleep 15
             }
         }
         stage('Cleanup Workspace - Slave') {
