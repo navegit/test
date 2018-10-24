@@ -66,6 +66,12 @@ pipeline {
                 sleep 15
             }
         }
+        stage('Cleanup Workspace - Slave') {
+            steps {
+                echo 'Cleaning workspace....'
+                cleanWs()
+            }
+        }
         stage('Deploy Workspace') {
             steps {
                 echo "deploying workspace"
